@@ -1,0 +1,18 @@
+# Query: HTML
+# ContextLines: 1
+
+5 results - 1 file
+
+index.html:
+   1: <!DOCTYPE html>
+   2: <html>
+   3    <head>
+   4:     <title>html</title>
+   5    </head>
+
+   9    <body>
+  10:     <form>
+  11    <input type="text"/>
+  <input type="submit" value="tìm kiếm"/>
+  
+  35  
