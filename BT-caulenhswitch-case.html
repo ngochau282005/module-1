@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Kiểm tra số ngày trong tháng</h1>
+    <input type="number" min="1" max="12" id="month" />
+    <button onclick="dayinMoth()">Check</button>
+    <p id="result"></p>
+    <script>
+      let thangInput = document.getElementById("month");
+      let resultPrint = document.getElementById("result");
+      function dayinMoth() {
+        let result = "";
+        let month = parseInt(thangInput.value);
+        if (isNumeric(month)) {
+          switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+              result = "31";
+              break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+              result = "30";
+              break;
+            case 2:
+              result = "28 hoặc 29";
+              break;
+            default:
+              result = "vui lòng nhập lại";
+              break;
+          }
+          resultPrint.innerHTML = "Tháng " + month + " có " + result + " ngày";
+        } else {
+          resultPrint.innerHTML = "vui lòng nhập lại";
+        }
+      }
+
+      // Kiem tra value la so hay khong, return true/false
+      function isNumeric(value) {
+        return !isNaN(parseInt(value)) && isFinite(value);
+      }
+    </script>
+  </body>
+</html>
