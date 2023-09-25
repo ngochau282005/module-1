@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let Pi = 3.14;
+      let r = prompt("nhập bán kính hình tròn: ");
+      let R = r * r;
+      function circlearea(R) {
+        let acreage = R * Pi;
+        return acreage;
+      }
+
+      function perimetecircle(r) {
+        let perimeter = 2 * r * Pi;
+        perimeter = perimeter.toFixed(2);
+        return perimeter;
+      }
+      alert("Diện tích hình tròn là:" + circlearea(R) + "<br/>");
+      alert("Chu vi hình tròn là:" + perimetecircle(r));
+    </script>
+  </body>
+</html>
