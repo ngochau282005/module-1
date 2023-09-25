@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let a = parseInt(prompt("nhập số a: "));
+      let b = parseInt(prompt("Nhập số b: "));
+      alert(comparenumbers(a, b));
+
+      function comparenumbers(num1, num2) {
+        let result;
+        if (num1 > num2) result = "Số lớn nhất là " + num1;
+        else result = "tổng hai tham số:" + (num1 + num2);
+        return result;
+      }
+    </script>
+  </body>
+</html>
