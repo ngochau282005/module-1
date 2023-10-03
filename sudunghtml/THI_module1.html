@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>Score : <span id="score"> 0</span></div>
+
+    <canvas></canvas>
+    <script>
+      //   const audio1 = new Audio("sound/audio.wav");
+      //   audio1.play()
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      let score = 0;
+
+      class Ball {
+        constructor(x, y, radius) {
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.dx = 3;
+          this.dy = 3;
+          this.color = "red";
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.fillStyle = this.color;
+          ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+          ctx.stroke();
+          ctx.fill();
+        }
+        update() {
+          this.draw();
+          this.x += this.dx;
+          this.y += this.dy;
+        }
+      }
+      class Player {
+        constructor(x, y, width, height) {
+          this.x = x;
+          this.y = y;
+          this.width = width;
+          this.height = height;
+          this.dx = 0;
+          this.dy = 0;
+          this.color = "blue";
+        }
+        draw() {
+          ctx.fillStyle = this.color;
+          ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+        update() {
+          this.draw();
+          this.x += this.dx;
+          this.y += this.dy;
+        }
+      }
+
+      let ball = new Ball(canvas.width / 2, canvas.height / 2, 20);
+      let player = new Player(canvas.width / 2, canvas.height - 50, 200, 30);
+      const keys = {
+        a: {
+          pressed: false,
+        },
+        d: {
+          pressed: false,
+        },
+      };
+      let newGame = false;
+      function animate() {
+        let animateId = requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ball.update();
+        player.update();
+        document.getElementById("score").innerHTML = score;
+        if (ball.x + ball.radius >= canvas.width || ball.x - ball.radius <= 0) {
+          ball.dx = -ball.dx;
+        }
+        if (ball.y - ball.radius <= 0) {
+          ball.dy = -ball.dy;
+        }
+        if (
+          ball.x + ball.radius >= player.x &&
+          ball.x - ball.radius <= player.x + player.width &&
+          ball.y + ball.radius >= player.y
+        ) {
+          ball.dy = -(ball.dy + 1);
+          score++;
+        }
+
+        if (keys.a.pressed && player.x >= 0) {
+          player.dx = -5;
+        } else if (keys.d.pressed && player.x + player.width <= canvas.width) {
+          player.dx = 5;
+        } else {
+          player.dx = 0;
+        }
+
+        if (ball.y + ball.radius >= canvas.height) {
+          cancelAnimationFrame(animateId);
+          alert("GAME OVER SCORE " + score);
+          newGame = confirm("New game?");
+          if (newGame) {
+            ball = new Ball(canvas.width / 2, canvas.height / 2, 20);
+            player = new Player(canvas.width / 2, canvas.height - 50, 200, 30);
+            score = 0;
+            animate();
+          }
+        }
+      }
+
+      animate();
+
+      addEventListener("keydown", ({ key }) => {
+        switch (key) {
+          case "a":
+            keys.a.pressed = true;
+            break;
+          case "d":
+            keys.d.pressed = true;
+            break;
+
+          default:
+            break;
+        }
+      });
+      addEventListener("keyup", ({ key }) => {
+        switch (key) {
+          case "a":
+            keys.a.pressed = false;
+
+            break;
+
+          case "d":
+            keys.d.pressed = false;
+            break;
+
+          default:
+            break;
+        }
+      });
+    </script>
+  </body>
+</html>
